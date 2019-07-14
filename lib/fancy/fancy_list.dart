@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
@@ -23,14 +24,24 @@ class _FancyListState extends State<FancyList> with AfterLayoutMixin<FancyList> 
     super.initState();
 
     scrollCtrl = InitScrollController((offset) {
-      // _metrics = offset;
+      /*setState(() {
+        _metrics = offset;
+      });*/
     });
   }
 
   build(BuildContext context) => Row(children: [
     Expanded(child: NotificationListener<ScrollNotification>(child: ListView(
       physics: NeverScrollableScrollPhysics(),
-      children: [_FancyListRenderWidget(child: Column(children: widget.children))],
+      children: [_FancyListRenderWidget(child: Column(children: widget.children), callback: (h) {
+        scheduleMicrotask(() {
+          setState(() {
+            _metrics = _metrics.copyWith(
+              maxScrollExtent: h - _metrics.viewportDimension
+            );
+          });
+        });
+      })],
       controller: scrollCtrl,
     ), onNotification: (ScrollNotification nf) {
       Future.microtask(() => setState(() {
@@ -51,15 +62,19 @@ class _FancyListState extends State<FancyList> with AfterLayoutMixin<FancyList> 
   }
 }
 
+typedef _FancyListUpdateCallback = void Function(double length);
+
 class _FancyListRenderWidget extends SingleChildRenderObjectWidget {
-  _FancyListRenderWidget({Widget child}) : super(child: child);
-  createRenderObject(BuildContext context) => _FancyListRenderProxyBox();
+  _FancyListRenderWidget({Widget child, this.callback}) : super(child: child);
+  final _FancyListUpdateCallback callback;
+  createRenderObject(BuildContext context) => _FancyListRenderProxyBox(callback: callback);
 }
 
 class _FancyListRenderProxyBox extends RenderProxyBox {
+  _FancyListRenderProxyBox({this.callback});
+  final _FancyListUpdateCallback callback;
   @override void performLayout() {
     super.performLayout();
+    callback(size.height);
   }
 }
-
-Opacity potato;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:example_flutter/misc/color_anim.dart';
 import 'package:flutter/widgets.dart';
 
@@ -38,16 +40,16 @@ class _FancyScrollbarState extends State<FancyScrollbar> with SingleTickerProvid
   double get getScrollInside => widget.metrics.maxScrollExtent + widget.metrics.viewportDimension;
 
   build(BuildContext context) => LayoutBuilder(builder: (ctx, cns) {
-    return Container(
+    bool maxed = widget.metrics == null || widget.metrics.maxScrollExtent == 0 || getScrollInside <= cns.maxHeight;
+    return AnimatedOpacity(child: Container(
       width: 16,
-      child: widget.metrics == null || getScrollInside <= cns.maxHeight ? Container() : Column(children: [Expanded(child: FractionallySizedBox(
+      child: Column(children: [Expanded(child: FractionallySizedBox(
         child: Listener(child: GestureDetector(child: AnimatedBuilder(
           animation: _thumb.ctrl,
           builder: (ctx, child) => LayoutBuilder(builder: (ctx, s) {
-            print("Constraints: $s");
             return Container(child: ClipRRect(
-              borderRadius: BorderRadius.zero,
-              child: Container(color: _thumb.value, width: 16),
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              child: Container(color: _thumb.value),
             ), padding: EdgeInsets.all(4), key: thumbKey);
           }),
         ),
@@ -73,14 +75,16 @@ class _FancyScrollbarState extends State<FancyScrollbar> with SingleTickerProvid
             updateThumb();
           },
           onPointerExit: (e) {
-            hovering = false;
-            updateThumb();
+            scheduleMicrotask(() {
+              hovering = false;
+              updateThumb();
+            });
           },
         ),
         widthFactor: 1.0,
-        heightFactor: cns.maxHeight / getScrollInside,
-        alignment: Alignment(0.0, (widget.metrics.pixels / widget.metrics.maxScrollExtent) * 2 - 1),
+        heightFactor: maxed ? 1.0 : cns.maxHeight / getScrollInside,
+        alignment: Alignment(0.0, maxed ? 0.0 : (widget.metrics.pixels / widget.metrics.maxScrollExtent) * 2 - 1),
       ))]),
-    );
+    ), opacity: maxed ? 0.0 : 1.0, duration: Duration(milliseconds: 250));
   });
 }
