@@ -145,6 +145,7 @@ int main(int argc, char **argv) {
     setCursor(*message->message);
   }, nullptr);
 
+
   FlutterDesktopMessengerSetCallback(cursorMessenger, "setIcon", [](
     FlutterDesktopMessengerRef messenger, const FlutterDesktopMessage* message, void* udata
   ) {

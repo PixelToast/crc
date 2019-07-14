@@ -43,10 +43,13 @@ class _FancyScrollbarState extends State<FancyScrollbar> with SingleTickerProvid
       child: widget.metrics == null || getScrollInside <= cns.maxHeight ? Container() : Column(children: [Expanded(child: FractionallySizedBox(
         child: Listener(child: GestureDetector(child: AnimatedBuilder(
           animation: _thumb.ctrl,
-          builder: (ctx, child) => Container(child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            child: Container(color: _thumb.value),
-          ), padding: EdgeInsets.all(4), key: thumbKey),
+          builder: (ctx, child) => LayoutBuilder(builder: (ctx, s) {
+            print("Constraints: $s");
+            return Container(child: ClipRRect(
+              borderRadius: BorderRadius.zero,
+              child: Container(color: _thumb.value, width: 16),
+            ), padding: EdgeInsets.all(4), key: thumbKey);
+          }),
         ),
           onVerticalDragStart: (d) {
             dragging = true;

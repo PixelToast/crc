@@ -4,6 +4,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:example_flutter/fancy/scrollbar.dart';
 import 'package:example_flutter/misc/init_scoll_ctrl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class FancyList extends StatefulWidget {
@@ -29,7 +30,7 @@ class _FancyListState extends State<FancyList> with AfterLayoutMixin<FancyList> 
   build(BuildContext context) => Row(children: [
     Expanded(child: NotificationListener<ScrollNotification>(child: ListView(
       physics: NeverScrollableScrollPhysics(),
-      children: widget.children,
+      children: [_FancyListRenderWidget(child: Column(children: widget.children))],
       controller: scrollCtrl,
     ), onNotification: (ScrollNotification nf) {
       Future.microtask(() => setState(() {
@@ -49,3 +50,16 @@ class _FancyListState extends State<FancyList> with AfterLayoutMixin<FancyList> 
     });
   }
 }
+
+class _FancyListRenderWidget extends SingleChildRenderObjectWidget {
+  _FancyListRenderWidget({Widget child}) : super(child: child);
+  createRenderObject(BuildContext context) => _FancyListRenderProxyBox();
+}
+
+class _FancyListRenderProxyBox extends RenderProxyBox {
+  @override void performLayout() {
+    super.performLayout();
+  }
+}
+
+Opacity potato;
