@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:circ2/fancy/buttons.dart';
 import 'package:circ2/fancy/fancy_list.dart';
+import 'package:circ2/fancy/text_field.dart';
 import 'package:circ2/fancy/tooltip.dart';
 import 'package:circ2/fancy/tree.dart';
 import 'package:circ2/misc/size_transition_noclip.dart';
@@ -313,6 +314,8 @@ class SettingsPanel extends StatelessWidget {
       ]),
       Expanded(child: Container(width: 300, color: Color(0xFF384152), child:
       Padding(child: FancyList(children: [Column(children: [
+        Padding(padding: EdgeInsets.only(top: 32)),
+        FancyTextField(),
         Padding(padding: EdgeInsets.only(top: 32)),
 
         Row(children: [Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
