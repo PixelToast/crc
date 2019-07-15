@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:example_flutter/fancy/buttons.dart';
-import 'package:example_flutter/fancy/fancy_list.dart';
-import 'package:example_flutter/fancy/tooltip.dart';
-import 'package:example_flutter/fancy/tree.dart';
-import 'package:example_flutter/misc/size_transition_noclip.dart';
+import 'package:circ2/fancy/buttons.dart';
+import 'package:circ2/fancy/fancy_list.dart';
+import 'package:circ2/fancy/tooltip.dart';
+import 'package:circ2/fancy/tree.dart';
+import 'package:circ2/misc/size_transition_noclip.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:example_flutter/misc/color_anim.dart';
+import 'package:circ2/misc/color_anim.dart';
 import 'package:flutter/widgets.dart';
 
 typedef OnScrollCallback = void Function(double delta);

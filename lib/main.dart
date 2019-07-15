@@ -1,5 +1,5 @@
-import 'package:example_flutter/misc/cursor_manager.dart';
-import 'package:example_flutter/windows/editor.dart';
+import 'package:circ2/misc/cursor_manager.dart';
+import 'package:circ2/windows/editor.dart';
 import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;

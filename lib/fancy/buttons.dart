@@ -1,5 +1,5 @@
-import 'package:example_flutter/misc/color_anim.dart';
-import 'package:example_flutter/misc/cursor_manager.dart';
+import 'package:circ2/misc/color_anim.dart';
+import 'package:circ2/misc/cursor_manager.dart';
 import 'package:flutter/widgets.dart';
 
 class FancyButton extends StatefulWidget {

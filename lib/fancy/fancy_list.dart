@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:example_flutter/fancy/scrollbar.dart';
-import 'package:example_flutter/misc/init_scoll_ctrl.dart';
+import 'package:circ2/fancy/scrollbar.dart';
+import 'package:circ2/misc/init_scoll_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
